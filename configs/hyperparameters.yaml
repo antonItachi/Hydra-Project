@@ -1,0 +1,25 @@
+dataset:
+  data: data/heart.csv
+
+target_y: output
+
+# defaults:
+#   - model: RandomForestClassifier
+
+model:
+  randomforest:
+    _target_: sklearn.ensemble.RandomForestClassifier
+    n_estimators: 500
+    max_features: 'sqrt'
+    max_depth: 15
+    bootstrap : True
+
+RandomizedSearchCV:
+  scoring: roc_auc
+  cv: 5
+  n_jobs: 4
+  refit: "AUC"
+  return_train_score: True
+
+metrics:
+  score: metrics.roc_auc_score
